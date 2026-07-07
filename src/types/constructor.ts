@@ -27,6 +27,8 @@ export type WallOption = {
   id: string;
   name: string;
   color: string;
+  texture?: string;
+  textureRepeat?: boolean;
 };
 
 export type PaspartuConfig = {

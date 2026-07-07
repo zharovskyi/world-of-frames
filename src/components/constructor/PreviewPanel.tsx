@@ -3,6 +3,7 @@
 import { labels } from "@/data/labels";
 import type { ConstructorState } from "@/hooks/useConstructorState";
 import { usePreviewScale } from "@/hooks/usePreviewScale";
+import { wallBackgroundStyle } from "@/lib/wallBackground";
 import { useRef } from "react";
 
 type PreviewPanelProps = Pick<
@@ -57,7 +58,7 @@ export function PreviewPanel({
       <div
         ref={containerRef}
         className="relative flex h-[min(50vh,400px)] w-full items-center justify-center p-4 sm:h-[min(55vh,480px)] sm:p-6 lg:h-[min(72dvh,680px)]"
-        style={{ backgroundColor: selectedWall.color }}
+        style={wallBackgroundStyle(selectedWall)}
       >
         <div
           className="relative shrink-0 transition-transform duration-300 ease-out"

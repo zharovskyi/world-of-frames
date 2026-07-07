@@ -105,6 +105,31 @@ export const wallOptions: WallOption[] = [
   { id: "w1", name: "Світла стіна", color: "#f0e6d8" },
   { id: "w2", name: "Бежева стіна", color: "#d9cbb8" },
   { id: "w3", name: "Темна стіна", color: "#5c4a3d" },
+  {
+    id: "w4",
+    name: "Цегляна стіна",
+    color: "#b85c42",
+    texture: "/catalog/walls/brick.webp",
+    textureRepeat: true,
+  },
+  {
+    id: "w5",
+    name: "Шпалери",
+    color: "#e8dce8",
+    texture: "/catalog/walls/wallpaper.svg",
+  },
+  {
+    id: "w6",
+    name: "Бетон",
+    color: "#c5c5c5",
+    texture: "/catalog/walls/concrete.svg",
+  },
+  {
+    id: "w7",
+    name: "Дерев'яна панель",
+    color: "#d4b888",
+    texture: "/catalog/walls/wood.webp",
+  },
 ];
 
 export const paspartuWidths = [20, 40, 60] as const;
