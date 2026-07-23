@@ -5,6 +5,7 @@ import type { ConstructorState } from "@/hooks/useConstructorState";
 import { usePreviewScale } from "@/hooks/usePreviewScale";
 import { wallBackgroundStyle } from "@/lib/wallBackground";
 import { useRef } from "react";
+import { FrameMolding } from "./FrameMolding";
 
 type PreviewPanelProps = Pick<
   ConstructorState,
@@ -70,33 +71,11 @@ export function PreviewPanel({
             filter: "drop-shadow(0 20px 40px rgba(61,46,39,0.3))",
           }}
         >
-          <div
-            className="absolute left-0 right-0 top-0"
-            style={{
-              height: frameWidthPx,
-              background: `linear-gradient(180deg, ${selectedFrame.previewColor}, color-mix(in srgb, ${selectedFrame.previewColor} 85%, black))`,
-            }}
-          />
-          <div
-            className="absolute bottom-0 left-0 right-0"
-            style={{
-              height: frameWidthPx,
-              background: `linear-gradient(0deg, ${selectedFrame.previewColor}, color-mix(in srgb, ${selectedFrame.previewColor} 85%, black))`,
-            }}
-          />
-          <div
-            className="absolute bottom-0 left-0 top-0"
-            style={{
-              width: frameWidthPx,
-              background: `linear-gradient(90deg, color-mix(in srgb, ${selectedFrame.previewColor} 90%, black), ${selectedFrame.previewColor})`,
-            }}
-          />
-          <div
-            className="absolute bottom-0 right-0 top-0"
-            style={{
-              width: frameWidthPx,
-              background: `linear-gradient(270deg, color-mix(in srgb, ${selectedFrame.previewColor} 90%, black), ${selectedFrame.previewColor})`,
-            }}
+          <FrameMolding
+            frame={selectedFrame}
+            frameWidthPx={frameWidthPx}
+            totalWidth={totalWidth}
+            totalHeight={totalHeight}
           />
 
           <div
@@ -113,10 +92,11 @@ export function PreviewPanel({
             }}
           >
             <div
-              className="relative overflow-hidden bg-white"
+              className="relative overflow-hidden"
               style={{
                 width: photoWidthPx,
                 height: photoHeightPx,
+                backgroundColor: "#f7f3ec",
               }}
             >
               {config.imageUrl ? (
@@ -125,7 +105,7 @@ export function PreviewPanel({
                   key={config.imageUrl}
                   src={config.imageUrl}
                   alt="Превʼю зображення"
-                  className="block h-full w-full object-cover"
+                  className="absolute inset-0 block h-full w-full object-contain"
                 />
               ) : (
                 <button

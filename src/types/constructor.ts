@@ -9,6 +9,12 @@ export type FrameProfile = {
   widthMm: number;
   pricePerMeter: number;
   previewColor: string;
+  /** Thumbnail for the selector (corner photo). */
+  image?: string;
+  /** Horizontal molding strip for the live preview frame. */
+  strip?: string;
+  /** Top-left corner piece for miter overlays. */
+  corner?: string;
 };
 
 export type PaspartuOption = {

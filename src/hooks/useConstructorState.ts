@@ -12,7 +12,7 @@ import {
   wallOptions,
 } from "@/data/catalog";
 import { labels } from "@/data/labels";
-import { calculateFrameLayout, isValidSize } from "@/lib/frameGeometry";
+import { calculateFrameLayout, clampSize, isValidSize } from "@/lib/frameGeometry";
 import { calculatePrice } from "@/lib/price";
 import type { ConstructorConfig, FrameMaterial } from "@/types/constructor";
 
@@ -142,11 +142,32 @@ export function useConstructorState() {
       setUploadError(labels.errorFileType);
       return;
     }
+
     const url = URL.createObjectURL(file);
-    setConfig((prev) => {
-      if (prev.imageUrl) URL.revokeObjectURL(prev.imageUrl);
-      return { ...prev, imageUrl: url };
-    });
+    const img = new Image();
+    img.onload = () => {
+      const aspect = img.naturalWidth / img.naturalHeight;
+      setConfig((prev) => {
+        if (prev.imageUrl) URL.revokeObjectURL(prev.imageUrl);
+        // Match canvas size to photo proportions so preview shows the same crop-free image
+        const maxSide = Math.max(prev.widthCm, prev.heightCm);
+        let widthCm: number;
+        let heightCm: number;
+        if (aspect >= 1) {
+          widthCm = clampSize(maxSide);
+          heightCm = clampSize(Math.round(widthCm / aspect));
+        } else {
+          heightCm = clampSize(maxSide);
+          widthCm = clampSize(Math.round(heightCm * aspect));
+        }
+        return { ...prev, imageUrl: url, widthCm, heightCm };
+      });
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      setUploadError(labels.errorUpload);
+    };
+    img.src = url;
   }, []);
 
   const removeImage = useCallback(() => {

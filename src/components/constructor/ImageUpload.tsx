@@ -44,7 +44,7 @@ export function ImageUpload({
       {config.imageUrl ? (
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
           <div
-            className="relative mx-auto aspect-[4/3] w-full max-w-[200px] overflow-hidden rounded-xl sm:mx-0 sm:max-w-[140px] sm:shrink-0 lg:max-w-[160px]"
+            className="relative mx-auto w-full max-w-[200px] overflow-hidden rounded-xl sm:mx-0 sm:max-w-[140px] sm:shrink-0 lg:max-w-[160px]"
             style={{
               border: "1px solid var(--constructor-border)",
               background: "var(--constructor-surface)",
@@ -55,7 +55,7 @@ export function ImageUpload({
               key={config.imageUrl}
               src={config.imageUrl}
               alt="Завантажене зображення"
-              className="h-full w-full object-cover"
+              className="block h-auto w-full object-contain"
             />
           </div>
 

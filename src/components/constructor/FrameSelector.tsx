@@ -3,6 +3,7 @@
 import { frames, materialLabels } from "@/data/catalog";
 import { labels } from "@/data/labels";
 import type { ConstructorState } from "@/hooks/useConstructorState";
+import { assetPath } from "@/lib/assetPath";
 import type { FrameMaterial } from "@/types/constructor";
 
 type FrameSelectorProps = Pick<
@@ -88,12 +89,23 @@ export function FrameSelector({
               config.frameId === frame.id ? "select-card-active" : ""
             }`}
           >
-            <div
-              className="mb-2 h-7 w-full rounded-lg shadow-inner"
-              style={{
-                background: `linear-gradient(135deg, ${frame.previewColor}, color-mix(in srgb, ${frame.previewColor} 70%, #000))`,
-              }}
-            />
+            {frame.image ? (
+              <div className="mb-2 overflow-hidden rounded-lg bg-[#f5efe6]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={assetPath(frame.image)}
+                  alt={frame.name}
+                  className="h-20 w-full object-cover object-left-top sm:h-24"
+                />
+              </div>
+            ) : (
+              <div
+                className="mb-2 h-7 w-full rounded-lg shadow-inner"
+                style={{
+                  background: `linear-gradient(135deg, ${frame.previewColor}, color-mix(in srgb, ${frame.previewColor} 70%, #000))`,
+                }}
+              />
+            )}
             <p className="text-xs font-semibold leading-snug" style={{ color: "var(--foreground)" }}>
               {frame.name}
             </p>
